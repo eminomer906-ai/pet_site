@@ -173,3 +173,24 @@ def add_pet():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+# Ana sayfa
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+# İlan ekleme sayfası
+@app.route('/add_pet', methods=['GET', 'POST'])
+def add_pet():
+    if request.method == 'POST':
+        pet_name = request.form['pet_name']
+        price = request.form['price']
+        owner = request.form['owner']
+        # Burada veritabanına kayıt yapılabilir (ileride ekleriz)
+        return f"<h2>{pet_name} adlı pet başarıyla eklendi!</h2><a href='/'>Ana sayfaya dön</a>"
+    return render_template('add_pet.html')
+
